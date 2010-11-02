@@ -1,0 +1,49 @@
+<div id="map_area">
+
+	<div id="map_canvas">
+	</div>
+	<% if @location_tweets.count > 0 %>
+		<% location_icons = ['../images/a_icon.gif','../images/b_icon.gif', '../images/c_icon.gif', '../images/d_icon.gif', '../images/e_icon.gif']
+    	   iconIndex = 0 %>
+		<script type="text/javascript">
+			var map = loadMap(41.8857561,-87.6244008 , 6);
+		<% @location_tweets.each do |tweet| %>
+			<% if iconIndex < 5 %>
+			<%  our_icon = location_icons[iconIndex] %>
+			<%  iconIndex += 1 %>
+			<% else %>
+			<%	our_icon = '../images/truck_icon.gif' %>
+			<% end %>
+			addLocation("<%= escape_javascript(tweet.truck.name) %>","<%= escape_javascript(tweet.text) %>", <%= tweet.location.lat %>, <%= tweet.location.lng %>, "<%= our_icon %>", map);
+		<% end %>
+		</script>
+	<% end %>
+</div>
+
+<div id="result_list">
+	<UL>
+		<% @trucks.each do |truck| %>
+			<li class="result">
+				<div class="result_content">
+					<span class="truck_name"><%= truck.name %></span>
+					<ol>
+					<% truck.tweets.limit(5).each do |tweet| %>
+						<li><%= tweet.text %>,<%= tweet.created_at %></li>
+						<% if tweet.location %>
+							L
+						<% end %>
+					<% end %>
+					</ol>
+					<div class="result_footer">
+						<ul>
+							<li>More from this truck: </li>
+							<li><a href="http://twitter.com/<%= truck.name %>"><%= image_tag("t_mini-a.png", :alt => "Truck Trakkor") %></a></li> |
+							<li><a href="http://thistruckswebsite.com">website</a></li> |
+						</ul>
+						<a href="#show_more"><%= image_tag("more.png", :alt => "Truck Trakkor", :class => "result_more") %></a>
+					</div>
+				</div>
+			</li>
+		<% end %>		
+	</UL>
+</div>

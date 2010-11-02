@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyText
+  city: chicago
+  lat: 0.0
+  lng: 0.0
+
+two:
+  name: MyText
+  city: sanfrancisco
+  lat: 0.1
+  lng: 0.1

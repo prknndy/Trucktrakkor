@@ -1,0 +1,201 @@
+body {
+	min-width: 1044px;
+	margin: 0;
+	background: #162739;
+	font-family: sans-serif;
+}
+
+/* Header Tags*/
+
+#header {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background-color: #0c2b4b;
+	min-width: 1044px;
+	border-bottom: 3px solid #CDE6FF;
+	height: 91px;
+
+}
+
+#footer {
+	min-width: 1044px;
+	height: 91px;
+	background: #162739;
+}
+
+.logo {
+	margin-top: 15px;
+}
+
+/* MENU BLOCK TAGS */
+
+.top_menu {
+	float: right;
+}
+
+.bottom_menu {
+
+}
+
+.menu_block {
+	color: #CDE6FF;
+	font-size: 24px;
+}
+
+
+ul.menu_block {
+	list-style: none;
+	margin-top: 30px;
+}
+
+
+
+ul.menu_block li {display: inline; }
+
+ul.menu_block a {
+	border: 1px;
+	padding: 0px 15px 0px 15px;
+	margin-right: 15px;
+	margin-bottom: 0px;
+	text-decoration: none;
+	color: #CDE6FF;
+	font-size: 24px;
+}
+
+ul.menu_block a.selected_city {
+	background-color: #CDE6FF;
+}
+
+/* SEARCH TAGS */
+
+#search_form {
+	height: 32px;
+	min-width: 1044px;
+	margin-top: 0px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	margin-left: 0px;
+	margin-right: 0px;
+	background: #9f3e19; black;
+	color: #CDE6FF; #0c2b4b;
+}
+
+#search_form ul {
+	list-style: none;
+	margin: 5px;
+}
+
+#search_form ul li {display: inline; }
+
+/* MAIN PAGE TAGS */
+
+#container {
+	min-width: 1044px;
+	min-height: 512px;
+	margin-top: 0px;
+	padding-top: 20px;
+	background: black;
+	background-image: url(../images/bg.png);
+	background-repeat: repeat-x;
+	
+}
+
+.static_page {
+	color: #CDE6FF;
+	size: 18px;
+	text-align: center;
+
+}
+
+/* TRUCK RESULTS TAGS */
+
+#result_list {
+
+}
+
+li.result {
+	margin-top: 20px;
+	padding: 10px;
+	padding-bottom: 30px;
+	background-color: #d8d8d8;white;
+	/*opacity: 0.5;*/
+	-moz-border-radius: 7px;
+	width: 600px;
+
+}
+
+.truck_name {
+	margin-top: 5px;
+	opacity: 1.0;	
+	color: black;
+	font-size: 18px;
+}
+
+.result_footer {
+	border-top: 1px solid #7d7d7d;
+	padding-top: 3px;
+}
+
+.result_footer ul {
+	float: left;
+	margin-bottom: -16px;
+}
+
+.result_footer ul li {
+	display: inline;
+}
+.result_footer a {
+	text-decoration: none;
+	font-size: 10px;
+}
+
+.result_footer a img {
+	border: 0;
+}
+
+.result_more {
+	float: right;
+	border: 0;
+	margin-right: -5px;
+}
+
+
+/* MAP TAGS */
+
+#map_area {
+	float: right;
+	margin-top: 20px;
+	margin-right: 50px;
+	
+}
+
+#infoWindowTitle {
+	color: #CDE6FF;
+	background-color: #686868;
+
+}
+
+#infoWindowBody {
+	color: black;
+}
+#infoWindowTime {
+	color: black;
+}
+
+
+#map_canvas {
+	height: 400px;
+	width: 400px;
+}
+
+
+
+
+
+
+
+
+
+
