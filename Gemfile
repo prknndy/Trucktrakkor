@@ -8,7 +8,7 @@ gem 'rails', '3.0.0'
 gem 'mysql2'
 
 # For xml processing
-# gem 'libxml-ruby'
+gem 'libxml-ruby'
 
 # Use unicorn as the web server
 # gem 'unicorn'
