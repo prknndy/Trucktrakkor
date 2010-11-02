@@ -1,5 +1,3 @@
-require 'xml' #TODO: Confirm this for deployment or change to a Gem requirement
-
 class Truck < ActiveRecord::Base
   attr_accessible :name, :city, :twitter_id, :recent_tweet_id
   has_many :tweets

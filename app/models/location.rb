@@ -1,5 +1,3 @@
-require 'xml' #TODO: Confirm this for deployment or change to a Gem requirement
-
 class Location < ActiveRecord::Base
   has_many :tweets
   
