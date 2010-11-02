@@ -1,3 +1,5 @@
+require 'xml'
+
 class Truck < ActiveRecord::Base
   attr_accessible :name, :city, :twitter_id, :recent_tweet_id
   has_many :tweets

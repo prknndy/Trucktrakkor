@@ -1,3 +1,5 @@
+require 'xml'
+
 class Location < ActiveRecord::Base
   has_many :tweets
   
