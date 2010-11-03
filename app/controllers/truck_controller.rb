@@ -1,13 +1,15 @@
 class TruckController < ApplicationController
     
   def by_location
-    
+    # Not currently used
   end
   
   def by_name
     
-    if params['address_string']
-      by_location
+    if params['address_string'].empty? and params['search_string'].empty?
+      flash[:error] = "You must enter a search term or address." 
+      redirect_to root_url
+      return
     end
     
     # Get the trucks
@@ -16,12 +18,27 @@ class TruckController < ApplicationController
     # otherwise, show a no results view
     # TODO: Change to a search so an exact match is not required, esp. for name
     # TODO: implement cities
-    @title = params['search_string']
-    @trucks = Truck.find_all_by_name(params['search_string'])
-    if (@trucks.count < 1)
-      #@trucks = Truck.find_all_by_category(params['search_string'])
-      @trucks = Category.find_by_name(params['search_string']).trucks
+    
+    if !(params['search_string'].empty?)
+      @title = params['search_string']
+      @trucks = Truck.find_all_by_name(params['search_string'])
+      if (@trucks.count < 1)
+        our_category = Category.find_by_name(params['search_string'])
+        if (our_category)
+          @trucks = our_category.trucks
+        end
+      end
+    else
+      @title = params['address_string']
+      @trucks = Truck.all
     end
+
+    if (@trucks.count < 1)
+      flash[:notice] = "Your search turned up no results."
+      redirect_to root_url
+      return
+    end
+    
     @location_tweets = []
     # Update the trucks
 

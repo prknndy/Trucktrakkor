@@ -5,6 +5,20 @@ body {
 	font-family: sans-serif;
 }
 
+/* INFORMATION TAGS */
+
+.notice {
+	font-size: 18px;
+	color: #CDE6FF;
+	text-align: center;
+}
+
+.error {
+	font-size: 18px;
+	color: red;
+	text-align: center;
+}
+
 /* Header Tags*/
 
 #header {
@@ -12,7 +26,7 @@ body {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background-color: #0c2b4b;
+	background-color: #162739; #0c2b4b;
 	min-width: 1044px;
 	border-bottom: 3px solid #CDE6FF;
 	height: 91px;
@@ -78,7 +92,7 @@ ul.menu_block a.selected_city {
 	padding-bottom: 1px;
 	margin-left: 0px;
 	margin-right: 0px;
-	background: #9f3e19; black;
+	background: black; #0c2b4b; #9f3e19; black;
 	color: #CDE6FF; #0c2b4b;
 }
 
@@ -112,6 +126,8 @@ ul.menu_block a.selected_city {
 /* TRUCK RESULTS TAGS */
 
 #result_list {
+	margin-left: 100px;
+	margin-bottom: 100px;
 
 }
 
@@ -167,7 +183,8 @@ li.result {
 #map_area {
 	float: right;
 	margin-top: 20px;
-	margin-right: 50px;
+	margin-right: 300px;
+	border: 2px solid #CDE6FF;
 	
 }
 

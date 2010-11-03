@@ -1,7 +1,17 @@
+	 <% if flash[:notice] %>  
+	 	<p class="notice"><%= flash[:notice] %></p>  
+	 <% end %>  
+	 <% if flash[:error] %>  
+	 	<p class="error"><%= flash[:error] %></p>  
+	 <% end %> 
 <p class="static_page">
+	<br>
+	<br>
 	search above for a truck by name
 	<br>
+	<br>
 	or
+	<br>
 	<br>
 	enter your address to find trucks near you
 </p>
