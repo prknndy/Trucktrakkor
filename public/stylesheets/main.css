@@ -26,7 +26,7 @@ body {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background-color: #162739; #0c2b4b;
+	background-color: #0c2b4b;
 	min-width: 1044px;
 	border-bottom: 3px solid #CDE6FF;
 	height: 91px;
@@ -134,19 +134,28 @@ ul.menu_block a.selected_city {
 li.result {
 	margin-top: 20px;
 	padding: 10px;
+	padding-top: 5px;
 	padding-bottom: 30px;
 	background-color: #d8d8d8;white;
 	/*opacity: 0.5;*/
 	-moz-border-radius: 7px;
 	width: 600px;
+}
 
+li.result ol li {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .truck_name {
-	margin-top: 5px;
+	margin-top: 0px;
 	opacity: 1.0;	
 	color: black;
 	font-size: 18px;
+}
+
+.tweet_time {
+	font-size: 12px;
 }
 
 .result_footer {

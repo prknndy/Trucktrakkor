@@ -24,14 +24,12 @@
 	<UL>
 		<% @trucks.each do |truck| %>
 			<li class="result">
-				<div class="result_content">
+				<div class="result_content  <%= truck.name %>">
 					<span class="truck_name"><%= truck.name %></span>
 					<ol>
 					<% truck.tweets.limit(5).each do |tweet| %>
-						<li><%= tweet.text %>,<%= tweet.created_at %></li>
-						<% if tweet.location %>
-							L
-						<% end %>
+						<li><%= tweet.text %><% if tweet.location %>~L~<% end %><br>
+						<span class="tweet_time">-<%= tweet.get_time_since %></span></li>
 					<% end %>
 					</ol>
 					<div class="result_footer">
