@@ -14,7 +14,7 @@ class Location < ActiveRecord::Base
       # Check for a street address match
       addr_match = sentence.match(/\d{1,4} ([NnEeSsWw]|[Nn]orth|[Ee]ast|[Ss]outh|[Ww]est)\.? (\w+)/i)
       if (addr_match)
-        if (Street.find_by_name_and_city(addr_match[2], city))
+        if (Street.find_by_name_and_city(addr_match[2].capitalize, city))
           our_location = Location.get_location(addr_match[0], city)
           if our_location
             return our_location
@@ -24,7 +24,7 @@ class Location < ActiveRecord::Base
       # Check for a block match
       block_match = sentence.match(/\d{1,2}00 ([Bb]lock|blc?k) (of)? ([NnEeSsWw]|[Nn]orth|[Ee]ast|[Ss]outh|[Ww]est)\.? (\w+)/i)
       if (block_match)
-        if (Street.find_by_name_and_city(block_match[4], city))
+        if (Street.find_by_name_and_city(block_match[4].capitalize, city))
           our_location = Location.get_location(block_match[0], city)
           if our_location
             return our_location
@@ -37,7 +37,7 @@ class Location < ActiveRecord::Base
       street_matches = []
       sentence.split(/\s+/).each do |w|
         
-        street_match = Street.find_by_name_and_city(w, city)
+        street_match = Street.find_by_name_and_city(w.capitalize, city)
         if (street_match)
           street_matches.push(w)
         end
