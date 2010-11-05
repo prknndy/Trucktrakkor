@@ -11,8 +11,14 @@
 <div id="header">
 	<%= image_tag("logo.png", :alt => "Truck Trakkor", :class => "logo") %>
 	<ul class="menu_block top_menu">
-			<li><a>Chicago</a></li> |
-			<li><a>San Francisco<a></li>
+	<% if session[:current_city].nil? %>
+	<%	session[:current_city] = "chicago" %>
+	<% end %>
+	<% selected_city = City.find_by_name(session[:current_city]) %>
+			<li><a class="selected_city">|<%= selected_city.display_name %>|</a></li>
+	<% City.where(["name != ?", session[:current_city]]).each do |city| %>
+			<li><%= link_to city.display_name, city %></a></li>  
+	<% end %>
 	</ul>
 </div>
 <div id="search_form">

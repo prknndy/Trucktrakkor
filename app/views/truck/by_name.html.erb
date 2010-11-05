@@ -1,12 +1,13 @@
 <div id="map_area">
 
-	<div id="map_canvas">
-	</div>
+
 	<% if @location_tweets.count > 0 %>
+		<div id="map_canvas">
+		</div>
 		<% location_icons = ['../images/a_icon.gif','../images/b_icon.gif', '../images/c_icon.gif', '../images/d_icon.gif', '../images/e_icon.gif']
     	   iconIndex = 0 %>
 		<script type="text/javascript">
-			var map = loadMap(41.8857561,-87.6244008 , 6);
+			var map = loadMap(<%= @center_location.lat %>, <%= @center_location.lng %>, <%= @zoom %>);
 		<% @location_tweets.each do |tweet| %>
 			<% if iconIndex < 5 %>
 			<%  our_icon = location_icons[iconIndex] %>
@@ -27,7 +28,7 @@
 				<div class="result_content  <%= truck.name %>">
 					<span class="truck_name"><%= truck.name %></span>
 					<ol>
-					<% truck.tweets.limit(5).each do |tweet| %>
+					<% truck.tweets.limit(5).order("created_at DESC").each do |tweet| %>
 						<li><%= tweet.text %><% if tweet.location %>~L~<% end %><br>
 						<span class="tweet_time">-<%= tweet.get_time_since %></span></li>
 					<% end %>

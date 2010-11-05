@@ -79,7 +79,7 @@ ul.menu_block a {
 }
 
 ul.menu_block a.selected_city {
-	background-color: #CDE6FF;
+	color: white;
 }
 
 /* SEARCH TAGS */
@@ -193,7 +193,7 @@ li.result ol li {
 	float: right;
 	margin-top: 20px;
 	margin-right: 300px;
-	border: 2px solid #CDE6FF;
+	/**/
 	
 }
 
@@ -214,6 +214,7 @@ li.result ol li {
 #map_canvas {
 	height: 400px;
 	width: 400px;
+	border: 2px solid #CDE6FF;
 }
 
 

@@ -6,6 +6,11 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
+# Create cities
+chicago = City.find_or_create_by_name({:name => 'chicago', :display_name => 'Chicago'})
+sanfrancisco = City.find_or_create_by_name({:name => 'sanfrancisco', :display_name => "San Francisco"})
+newyork = City.find_or_create_by_name({:name => 'newyork', :display_name => 'New York'})
+
 # Create categories
 # meal times
 breakfast = Category.find_or_create_by_name({:name => 'breakfast'})

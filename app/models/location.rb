@@ -3,9 +3,22 @@ require 'xml'
 class Location < ActiveRecord::Base
   has_many :tweets
   
-  def Location.valid_location?(text)
-    # TODO: FIX below!
-    city = 'chicago'
+  def get_dist(loc)
+    # returns distance from loc in miles
+    lat1 = (self.lat.to_f/180)* Math::PI
+    lng1 = (self.lng.to_f/180)* Math::PI
+    lat2 = (loc.lat.to_f/180)* Math::PI
+    lng2 = (loc.lng.to_f/180)* Math::PI
+    dLat = lat1 - lat2
+    dLng = lng1 - lng2
+    e_R = Float(3958.76) #radius of the earth in mi
+    a = Math.sin(dLat/2)**2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng/2)**2
+    c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a))
+    (e_R * c).round
+  end
+  
+  def Location.valid_location?(text, city)
+    
     # Split text into sentences and process seperately
     sentences = text.downcase.gsub(/(\w{1,3})\./, '\1').split(/\.|\?|!/)
     sentences.each do |sentence|
@@ -56,7 +69,7 @@ class Location < ActiveRecord::Base
   end
   
   
-  def Location.get_location(address, city)
+  def Location.get_location(address, city, save=true)
     city_strings = { 'chicago' => ',+Chicago,+IL', 'sanfrancisco' => ',+San+Francisco,+CA', 'newyork' => '+New+York,+NY'}
       
     # Check if this location is already in the database
@@ -77,7 +90,9 @@ class Location < ActiveRecord::Base
       new_lat = location_node.find_first('lat').inner_xml
       new_lng = location_node.find_first('lng').inner_xml
       our_location = Location.new({:name => address, :city => city, :lat=>new_lat, :lng=>new_lng})
-      our_location.save
+      if save
+        our_location.save
+      end
       our_location
     else
       nil

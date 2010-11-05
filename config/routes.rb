@@ -2,11 +2,9 @@ Trucktrakkor::Application.routes.draw do
   get "pages/about"
   get "pages/index"
 
-  #resources :truck
- 
+  resources :city
   
   get "truck/by_name"
-  get "truck/by_location"
   match 'search' => 'truck#by_name'
   match 'about' => 'pages#about'
   
