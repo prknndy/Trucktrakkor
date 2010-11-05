@@ -14,7 +14,7 @@ class Location < ActiveRecord::Base
       # Check for a street address match
       addr_match = sentence.match(/\d{1,4} ([NnEeSsWw]|[Nn]orth|[Ee]ast|[Ss]outh|[Ww]est)\.? (\w+)/i)
       if (addr_match)
-        if (Street.find_by_name_and_city(addr_match[1], city))
+        if (Street.find_by_name_and_city(addr_match[2], city))
           our_location = Location.get_location(addr_match[0], city)
           if our_location
             return our_location
@@ -50,11 +50,8 @@ class Location < ActiveRecord::Base
           end
           nil
         end
-        
       end
-      
     end
-    
     nil
   end
   
