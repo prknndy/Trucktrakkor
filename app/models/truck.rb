@@ -1,14 +1,17 @@
 require 'xml'
 
 class Truck < ActiveRecord::Base
+  cattr_reader :per_page
+  @@per_page = 5
   attr_accessible :name, :city, :twitter_id, :recent_tweet_id
+  
   has_many :tweets
   has_and_belongs_to_many :categories
   
   def update_from_twitter
     
     # Only update a maximum of every _update_wait_ minutes to avoid getting blacklisted
-    update_wait = 1
+    update_wait = 10
   	if (time_since_update > update_wait)
   		# Open twitter feed
   		if (self.recent_tweet.nil?)
@@ -34,7 +37,6 @@ class Truck < ActiveRecord::Base
   		self.save
   		self.remove_old_tweets()
 
-  		
   	end
   	
   	# Find newest valid location

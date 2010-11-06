@@ -1,25 +1,34 @@
 class TruckController < ApplicationController
-    
+     
   def by_location
     # Not currently used
   end
   
+  def show
+    @trucks = Truck.paginate_by_id(params[:id])
+    update_and_set
+    
+    respond_to do |format| 
+      format.html # show.html.erb  
+      format.xml { render :xml => @trucks }
+    end
+  end
+  
+  def category
+    set_city
+    city = @city
+    
+    category = Category.find(params[:id])
+    @trucks = category.trucks.paginate(:all, :conditions => ["city = ?", city], :page => params[:page], :per_page => 5)
+    
+    update_and_set
+    render :action => "show"
+  end
+  
   def by_name
     
-    # Pull current city from the session, or check in the parameters if it doesn't exist
-    # TODO: Use cookie instead of session?
-    # TODO: Consider simplier ways to pass the city parameter/session
-    if (session[:current_city].nil?)
-      if (params['city'].nil? or params['city'].empty?)
-        flash[:error] = "No city selected."
-        redirect_to root_url
-        return
-      else
-        city = params['city']
-      end
-    else
-      city = session[:current_city]
-    end
+    set_city
+    city = @city
     
     
     if params['address_string'].empty? and params['search_string'].empty?
@@ -38,16 +47,16 @@ class TruckController < ApplicationController
     # TODO: req a search string even for address searches?
     if !(params['search_string'].empty?)
       @title = params['search_string']
-      @trucks = Truck.find_all_by_name_and_city(params['search_string'], city)
+      @trucks = Truck.paginate(:conditions => ["city = ? and name = ?", city, params['search_string']], :page => params[:page], :per_page => 5)
       if (@trucks.count < 1)
         category = Category.find_by_name(params['search_string'])
         if category
-          @trucks = category.trucks.find(:all, :conditions => ["city = ?", city])
+          @trucks = category.trucks.paginate(:all, :conditions => ["city = ?", city], :page => params[:page], :per_page => 5)
         end
       end
     else
       @title = params['address_string']
-      @trucks = Truck.find_all_by_city(city)
+      @trucks = Truck.paginate(:conditions => ["city = ?", city], :page => params[:page], :per_page => 5)
     end
     
     if !(params['address_string'].empty?)
@@ -59,6 +68,17 @@ class TruckController < ApplicationController
       end
     end
 
+    update_and_set
+    
+    render :action => "show"
+  end
+  
+  private
+  
+  def update_and_set
+    # Updates the trucks and configures the map
+    # requires @trucks to be populated
+    
     if (@trucks.count < 1)
       flash[:notice] = "Your search turned up no results."
       redirect_to root_url
@@ -80,11 +100,6 @@ class TruckController < ApplicationController
         set_center
       end
       set_zoom
-    end
-    
-    respond_to do |format| 
-      format.html # by_name.html.erb  
-      format.xml { render :xml => @trucks }
     end
   end
   

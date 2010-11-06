@@ -35,12 +35,16 @@ body {
 
 #footer {
 	min-width: 1044px;
-	height: 91px;
+	min-height: 91px;
+	border-top: 10px solid black;
+	margin-top: 0px;
 	background: #162739;
 }
 
 .logo {
 	margin-top: 15px;
+	text-decoration: none;
+	border: none;
 }
 
 /* MENU BLOCK TAGS */
@@ -110,6 +114,7 @@ ul.menu_block a.selected_city {
 	min-height: 512px;
 	margin-top: 0px;
 	padding-top: 20px;
+	margin-bottom: -20px;
 	background: black;
 	background-image: url(../images/bg.png);
 	background-repeat: repeat-x;
@@ -127,8 +132,6 @@ ul.menu_block a.selected_city {
 
 #result_list {
 	margin-left: 100px;
-	margin-bottom: 100px;
-
 }
 
 li.result {
@@ -185,6 +188,19 @@ li.result ol li {
 	border: 0;
 	margin-right: -5px;
 }
+
+.pagination {
+	text-align: center;
+	font-size: 20px;
+	color: white;
+}
+
+.pagination a {
+	text-decoration: underline;
+	color: #CDE6FF;
+}
+
+
 
 
 /* MAP TAGS */

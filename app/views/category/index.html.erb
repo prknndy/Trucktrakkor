@@ -1,0 +1,11 @@
+<div class="static_page">
+<% @categories.each do |category| %>
+	<% if category.trucks.count > 0 %>
+		<%= link_to category.name, category_path(category) %>
+		<ul><%	category.trucks.find(:all, :conditions => ["city = ?", @city]).each do |truck| %>
+			<li><%= link_to truck.name, truck %></li>
+			<% end %></ul>
+			<br>
+	<% end %>
+<% end %>
+</div>

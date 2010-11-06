@@ -1,12 +1,21 @@
 Trucktrakkor::Application.routes.draw do
+  
+  # page resources
   get "pages/about"
   get "pages/index"
-
-  resources :city
-  
-  get "truck/by_name"
-  match 'search' => 'truck#by_name'
   match 'about' => 'pages#about'
+  # city resources
+  resources :city, :only => :show
+  # cateogry resources
+  match "category/:id" => "truck#category" 
+  resources :category, :only => [ :index, :show]
+  match 'browse' => 'category#index'
+  # truck resources
+  resources :truck, :only => :show
+  get "truck/by_name"
+  get "truck/category"
+  match "truck/category/:id" => 'truck#category'
+  match 'search' => 'truck#by_name'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
