@@ -5,8 +5,12 @@ class TruckController < ApplicationController
   end
   
   def show
-    @trucks = Truck.paginate_by_id(params[:id])
-    update_and_set
+    @trucks = Truck.paginate( :conditions => ["id = ?", params[:id]], :page => params[:page])
+    
+    if !update_and_set
+      redirect_to root_url
+      return
+    end
     
     respond_to do |format| 
       format.html # show.html.erb  
@@ -21,8 +25,12 @@ class TruckController < ApplicationController
     category = Category.find(params[:id])
     @trucks = category.trucks.paginate(:all, :conditions => ["city = ?", city], :page => params[:page], :per_page => 5)
     
-    update_and_set
-    render :action => "show"
+    if (update_and_set)
+      render :action => "show"
+    else
+      redirect_to root_url
+      return
+    end
   end
   
   def by_name
@@ -68,9 +76,12 @@ class TruckController < ApplicationController
       end
     end
 
-    update_and_set
-    
-    render :action => "show"
+    if (update_and_set)
+      render :action => "show"
+    else
+      redirect_to root_url
+      return
+    end
   end
   
   private
@@ -79,20 +90,23 @@ class TruckController < ApplicationController
     # Updates the trucks and configures the map
     # requires @trucks to be populated
     
-    if (@trucks.count < 1)
-      flash[:notice] = "Your search turned up no results."
-      redirect_to root_url
-      return
-    end
-    
     @location_tweets = []
     # Update the trucks
 
     @trucks.each do |truck|
+      if (truck.tweets.count < 1)
+        @trucks.delete(truck)
+        next
+      end
       our_loc_tweet = truck.update_from_twitter
       if (our_loc_tweet)
         @location_tweets.push(our_loc_tweet)
       end
+    end
+    
+    if (@trucks.count < 1)
+      flash[:notice] = "Your search turned up no trucks that have been active in the past day."
+      return false
     end
     
     if @location_tweets.count > 0
@@ -101,6 +115,7 @@ class TruckController < ApplicationController
       end
       set_zoom
     end
+    true
   end
   
   def set_center

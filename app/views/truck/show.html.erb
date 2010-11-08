@@ -1,6 +1,4 @@
 <div id="map_area">
-
-
 	<% if @location_tweets.count > 0 %>
 		<div id="map_canvas">
 		</div>
@@ -24,22 +22,39 @@
 <div id="result_list">
 	<UL>
 		<% @trucks.each do |truck| %>
+			<% if (truck.tweets.count < 1) %>
+			<%	next %>
+ 			<% end %>
 			<li class="result">
 				<div class="result_content  <%= truck.name %>">
 					<span class="truck_name"><%= truck.name %></span>
 					<ol>
-					<% truck.tweets.limit(5).order("created_at DESC").each do |tweet| %>
+					<% first_tweet = truck.tweets.order("created_at DESC").first %>
+					<li><%= first_tweet.text %><% if first_tweet.location %>~L~<% end %><br>
+					<span class="tweet_time">-<%= first_tweet.get_time_since %></span></li>
+					<div id="<%= truck.name %>_tweets"><% truck.tweets.limit(5).offset(1).order("created_at DESC").each do |tweet| %>
 						<li><%= tweet.text %><% if tweet.location %>~L~<% end %><br>
 						<span class="tweet_time">-<%= tweet.get_time_since %></span></li>
-					<% end %>
+					<% end %></div>
 					</ol>
 					<div class="result_footer">
 						<ul>
+						</ul>
+						<ul>
 							<li>More from this truck: </li>
 							<li><a href="http://twitter.com/<%= truck.name %>"><%= image_tag("t_mini-a.png", :alt => "Truck Trakkor") %></a></li> |
-							<li><a href="http://thistruckswebsite.com">website</a></li> |
+							<% if truck.website %>
+								<li><a href="<%= truck.website %>">website</a></li> |
+							<% end %>
 						</ul>
-						<a href="#show_more"><%= image_tag("more.png", :alt => "Truck Trakkor", :class => "result_more") %></a>
+						<a href="#show_more"><%= image_tag("more.png", :alt => "Truck Trakkor", :id => (truck.name + "_more"), :class => "result_more") %></a>
+						<script type="text/javascript">
+							$('<%= truck.name %>_tweets').hide();
+							$('<%= truck.name %>_more').observe('click', function(event) {
+									event.stop();
+									Effect.toggle('<%= truck.name %>_tweets', 'slide');
+								});
+						</script>
 					</div>
 				</div>
 			</li>

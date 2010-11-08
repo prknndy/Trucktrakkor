@@ -3,7 +3,7 @@ require 'xml'
 class Truck < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 5
-  attr_accessible :name, :city, :twitter_id, :recent_tweet_id
+  attr_accessible :name, :city, :twitter_id, :recent_tweet_id, :website
   
   has_many :tweets
   has_and_belongs_to_many :categories
