@@ -23,7 +23,7 @@ class TruckController < ApplicationController
     city = @city
     
     category = Category.find(params[:id])
-    @trucks = category.trucks.paginate(:all, :conditions => ["city = ?", city], :page => params[:page], :per_page => 5)
+    @trucks = category.trucks.paginate(:all, :conditions => ["city = ?", city], :page => params[:page], :order => "name ASC", :per_page => 5)
     
     if (update_and_set)
       render :action => "show"
@@ -33,7 +33,7 @@ class TruckController < ApplicationController
     end
   end
   
-  def by_name
+  def search
     
     set_city
     city = @city
@@ -55,16 +55,16 @@ class TruckController < ApplicationController
     # TODO: req a search string even for address searches?
     if !(params['search_string'].empty?)
       @title = params['search_string']
-      @trucks = Truck.paginate(:conditions => ["city = ? and name = ?", city, params['search_string']], :page => params[:page], :per_page => 5)
+      @trucks = Truck.paginate(:conditions => ["city = ? and name = ?", city, params['search_string']], :order => "name ASC", :page => params[:page], :per_page => 5)
       if (@trucks.count < 1)
         category = Category.find_by_name(params['search_string'])
         if category
-          @trucks = category.trucks.paginate(:all, :conditions => ["city = ?", city], :page => params[:page], :per_page => 5)
+          @trucks = category.trucks.paginate(:all, :conditions => ["city = ?", city], :page => params[:page], :order => "name ASC", :per_page => 5)
         end
       end
     else
       @title = params['address_string']
-      @trucks = Truck.paginate(:conditions => ["city = ?", city], :page => params[:page], :per_page => 5)
+      @trucks = Truck.paginate(:conditions => ["city = ?", city], :page => params[:page], :order => "name ASC", :per_page => 5)
     end
     
     if !(params['address_string'].empty?)
@@ -94,13 +94,12 @@ class TruckController < ApplicationController
     # Update the trucks
 
     @trucks.each do |truck|
-      if (truck.tweets.count < 1)
-        @trucks.delete(truck)
-        next
-      end
       our_loc_tweet = truck.update_from_twitter
       if (our_loc_tweet)
         @location_tweets.push(our_loc_tweet)
+      end
+      if (truck.tweets.count < 1)
+        @trucks.delete(truck)
       end
     end
     
