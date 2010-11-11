@@ -1,4 +1,5 @@
 .bundle
+image_develop/*
 db/*.sqlite3
 log/*.log
 tmp/**/*

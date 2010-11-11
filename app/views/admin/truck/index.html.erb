@@ -1,0 +1,12 @@
+<div class="center_column text_block">
+	<p class="title">Trucks located in <%= @city %>:</p>
+	<ol>
+	<% @trucks.each do |truck| %>
+		<li>
+		<%= truck.name %>: <%= link_to "edit", edit_admin_truck_path(truck.id) %> <%= link_to "delete", [:admin, truck], :method => "delete", :confirm => "Confirm?" %>
+		</li>
+		<br>
+	<% end %>
+	</ol>
+	<p class="center_align"><%= link_to "Add a New Truck", new_admin_truck_path %></p>
+</div>

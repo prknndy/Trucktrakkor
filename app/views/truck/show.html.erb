@@ -2,20 +2,6 @@
 	<% if @location_tweets.count > 0 %>
 		<div id="map_canvas">
 		</div>
-		<% location_icons = ['../images/a_icon.gif','../images/b_icon.gif', '../images/c_icon.gif', '../images/d_icon.gif', '../images/e_icon.gif']
-    	   iconIndex = 0 %>
-		<script type="text/javascript">
-			var map = loadMap(<%= @center_location.lat %>, <%= @center_location.lng %>, <%= @zoom %>);
-		<% @location_tweets.each do |tweet| %>
-			<% if iconIndex < 5 %>
-			<%  our_icon = location_icons[iconIndex] %>
-			<%  iconIndex += 1 %>
-			<% else %>
-			<%	our_icon = '../images/truck_icon.gif' %>
-			<% end %>
-			addLocation("<%= escape_javascript(tweet.truck.name) %>","<%= escape_javascript(tweet.text) %>", <%= tweet.location.lat %>, <%= tweet.location.lng %>, "<%= our_icon %>", map);
-		<% end %>
-		</script>
 	<% end %>
 </div>
 
@@ -26,27 +12,36 @@
 			<%	next %>
  			<% end %>
 			<li class="result">
+				<div id="<%= truck.name %>_icons" class="result_icons"></div>
 				<div class="result_content  <%= truck.name %>">
-					<span class="truck_name"><%= truck.name %></span>
+					<span class="truck_name">
+						<%= truck.name %>
+					</span>
 					<ol>
-					<% first_tweet = truck.tweets.order("created_at DESC").first %>
-					<li><%= first_tweet.text %><% if first_tweet.location %>~L~<% end %><br>
-					<span class="tweet_time">-<%= first_tweet.get_time_since %></span></li>
-					<div id="<%= truck.name %>_tweets"><% truck.tweets.limit(5).offset(1).order("created_at DESC").each do |tweet| %>
-						<li><%= tweet.text %><% if tweet.location %>~L~<% end %><br>
-						<span class="tweet_time">-<%= tweet.get_time_since %></span></li>
-					<% end %></div>
+						<% first_tweet = truck.tweets.order("created_at DESC").first %>
+						<li>
+							<%= first_tweet.text %><% if first_tweet.location %>~L~<% end %><br>
+							<span class="tweet_time">-<%= first_tweet.get_time_since %></span>
+						</li>
+						<div id="<%= truck.name %>_tweets"><% truck.tweets.limit(5).offset(1).order("created_at DESC").each do |tweet| %>
+							<li><%= tweet.text %><% if tweet.location %>~L~<% end %><br>
+							<span class="tweet_time">-<%= tweet.get_time_since %></span></li>
+						<% end %></div>
 					</ol>
 					<div class="result_footer">
-						<ul>
-						</ul>
-						<ul>
+						<ul class="footer_more_info">
 							<li>More from this truck: </li>
-							<li><a href="http://twitter.com/<%= truck.name %>"><%= image_tag("t_mini-a.png", :alt => "Truck Trakkor") %></a></li> |
+							<li><a href="http://twitter.com/<%= truck.name %>"><%= image_tag("t_mini-a.png", :alt => "Truck Trakkor") %></a></li>
 							<% if truck.website %>
-								<li><a href="<%= truck.website %>">website</a></li> |
+								<li>| <a href="<%= truck.website %>">website</a></li>
 							<% end %>
 						</ul>
+						<ul>
+							<li>Categories: </li>
+							<% truck.categories.each do |category| %>
+								<li><%= category.name %></li>
+							<% end %>
+						</ul><br>
 						<a href="#show_more"><%= image_tag("more.png", :alt => "Truck Trakkor", :id => (truck.name + "_more"), :class => "result_more") %></a>
 						<script type="text/javascript">
 							$('<%= truck.name %>_tweets').hide();
@@ -64,3 +59,22 @@
 	</UL>
 	
 </div>
+
+<% if @location_tweets.count > 0 %>
+		<% location_icons = ['../images/a_icon.gif','../images/b_icon.gif', '../images/c_icon.gif', '../images/d_icon.gif', '../images/e_icon.gif']
+    	   iconIndex = 0 %>
+		<script type="text/javascript">
+			var map = loadMap(<%= @center_location.lat %>, <%= @center_location.lng %>, <%= @zoom %>);
+			<% @location_tweets.each do |tweet| %>
+				<% if iconIndex < 5 %>
+				<%  our_icon = location_icons[iconIndex] %>
+				<%  iconIndex += 1 %>
+				<% else %>
+				<%	our_icon = '../images/truck_icon.gif' %>
+				<% end %>
+				$("<%= tweet.truck.name %>_icons").insert("<img src='<%= our_icon %>' alt='Truck icon'></img>");
+				addLocation("<%= escape_javascript(tweet.truck.name) %>","<%= escape_javascript(tweet.text) %>", <%= tweet.location.lat %>, <%= tweet.location.lng %>, "<%= our_icon %>", map);
+			<% end %>
+		</script>
+<% end %>
+

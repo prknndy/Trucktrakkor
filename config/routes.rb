@@ -18,6 +18,16 @@ Trucktrakkor::Application.routes.draw do
   match "truck/category/:id" => 'truck#category'
   match 'search' => 'truck#search'
   
+  # admin resources
+  namespace "admin" do
+    resources :truck
+    resources :category, :only => [:index, :create, :destroy]
+    resources :sessions, :only => [:new, :create, :destroy]
+    match "login" => "sessions#new"
+    match "logout" => "sessions#destroy"
+  end
+
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

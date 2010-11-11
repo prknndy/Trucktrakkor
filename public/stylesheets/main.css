@@ -86,6 +86,26 @@ ul.menu_block a.selected_city {
 	color: white;
 }
 
+.user_menu {
+	background-color: black;
+	color: #CDE6FF;
+	width: 100%;
+	border-top: 2px solid #CDE6FF;
+	border-bottom: 2px solid #CDE6FF;
+}
+
+.user_menu ul {
+	list-style: none;
+}
+
+.user_menu ul li { display: inline; }
+
+.user_menu ul li a {
+	color: #CDE6FF;
+	text-decoration: none;
+	font-size: 16px;
+}
+
 /* SEARCH TAGS */
 
 #search_form {
@@ -128,7 +148,42 @@ ul.menu_block a.selected_city {
 
 }
 
+.text_block {
+	background-color: #d8d8d8;
+	padding: 10px;
+	margin-bottom: 15px;
+	-moz-border-radius: 7px;
+	color: black;
+	font-size: 14px;
+}
+
+p.title {
+	font-size: 18px;
+	text-align: center;
+	border-bottom: 1px solid black;
+}
+
+
+.center_column {
+	width: 40%;
+	margin-left: 30%;
+	margin-right: 30%;
+}
+
+.center_align {
+	text-align: center;
+}
+
+.no_list_style {
+	list-style: none;
+}
+
+
 /* TRUCK RESULTS TAGS */
+
+.result_icons {
+	float: right;
+}
 
 #result_list {
 	margin-left: 10%;
@@ -166,11 +221,15 @@ li.result ol li {
 .result_footer {
 	border-top: 1px solid #7d7d7d;
 	padding-top: 3px;
+	font-size: 12px;
+}
+
+.footer_more_info {
+	float: right;
 }
 
 .result_footer ul {
-	float: left;
-	margin-bottom: -16px;
+	/*margin-bottom: -16px;*/
 }
 
 .result_footer ul li {

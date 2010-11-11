@@ -38,8 +38,24 @@
 	</ul>
 </div>
 <div id="container">
+	<% if flash[:notice] %>  
+	 	<p class="notice"><%= flash[:notice] %></p>  
+	 <% end %>  
+	 <% if flash[:error] %>  
+	 	<p class="error"><%= flash[:error] %></p>  
+	 <% end %> 
 	<%= yield %>
 </div>
+<% if signed_in? %>
+	<div class="user_menu">
+		<ul>
+			<li>You are logged in as <%= @current_user.name %>: </li>
+			<li>|<%= link_to "Manage Trucks", admin_truck_index_path %>|</li>
+			<li>|<%= link_to "Manage Categories", admin_category_index_path %>| </li>
+			<li>|<%= link_to "Logout", admin_logout_path %>|</li>
+		</ul>
+	</div>
+<% end %>
 <div id="footer">
 	<p>
 		<ul class="menu_block bottom_menu">

@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   #rescue_from ActiveRecord::RecordNotFound, :with => :route_not_found
   #rescue_from ActionController::RoutingError, :with => :route_not_found
   protect_from_forgery
+  include Admin::SessionsHelper
+  
   
   def set_city
     # Pull current city from the session, or check in the parameters if it doesn't exist

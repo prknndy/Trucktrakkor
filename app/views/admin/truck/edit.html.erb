@@ -1,0 +1,14 @@
+<div class="text_block center_column">
+	<p class="title">Edit <%= @truck.name %>:</p>
+	<%= form_for([:admin, @truck]) do |f| %>
+		 <%= label_tag("Name:") %>
+		 <%= f.text_field :name %><br>
+		 <%= label_tag("Website:") %>
+		 <%= f.text_field :website %><br>
+		 <%= label_tag("City:") %>
+		 <%= f.text_field :city %><br>
+		 <%= label_tag("Twitter Id:") %>
+		 <%= f.text_field :twitter_id %><br>
+		 <p class="center_align"><%= submit_tag "Update" %></p>
+	<% end %>
+</div>

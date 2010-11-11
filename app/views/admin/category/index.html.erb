@@ -1,0 +1,14 @@
+<div class="center_column text_block">
+	<p class="title">Categories:</p>
+	<ul class="no_list_style">
+	<% @categories.each do |category| %>
+		<li>
+		<%= category.name %> (<%= link_to "delete", [:admin, category], :method => "delete", :confirm => "Confirm?" %>)
+		</li>
+	<% end %>
+	</ul>
+	<%= form_for(:category, @category) do |f| %>
+		<%= f.text_field :name %> 
+		<%= submit_tag("Create New Category") %>
+	<% end %>
+</div>
