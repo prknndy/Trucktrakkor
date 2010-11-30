@@ -1,0 +1,18 @@
+<div class="text_block center_column">
+	<p class="title">New Location:</p>
+	<%= form_for(:location, @location, :url => admin_location_index_path) do |f| %>
+		 <%= label_tag("Name:") %>
+		 <%= f.text_field :name %><br>
+		 <%= label_tag("City:") %>
+		 <%= f.text_field :city %><br>
+		 <%= label_tag("Keyword:") %>
+		 <%= f.text_field :keyword %><br>
+		 <%= label_tag("Regexp match (optional):") %>
+		 <%= f.text_field :reg_match %><br>
+		 <%= label_tag("Lat:") %> 
+		 <%= f.text_field :lat %> 
+		 <%= label_tag("Lng:") %> 
+		 <%= f.text_field :lng %><br>
+		 <p class="center_align"><%= submit_tag "Create" %></p>
+	<% end %>
+</div>

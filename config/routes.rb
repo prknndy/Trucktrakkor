@@ -8,7 +8,11 @@ Trucktrakkor::Application.routes.draw do
   resources :city, :only => :show
   # category resources
   match "category/:id" => "truck#category" 
-  resources :category, :only => [ :index, :show]
+  resources :category, :only => [ :index, :show] do
+    member do
+      get 'show_trucks'
+    end
+  end
   match 'browse' => 'category#index'
   # truck resources
   match "truck/search" => "truck#search"
@@ -20,9 +24,15 @@ Trucktrakkor::Application.routes.draw do
   
   # admin resources
   namespace "admin" do
-    resources :truck
+    resources :truck do
+      member do
+        get 'edit_categories'
+        put 'update_categories'
+      end
+    end
     resources :category, :only => [:index, :create, :destroy]
     resources :sessions, :only => [:new, :create, :destroy]
+    resources :location
     match "login" => "sessions#new"
     match "logout" => "sessions#destroy"
   end

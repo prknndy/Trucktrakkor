@@ -1,11 +1,12 @@
-<div class="static_page">
+<div class="stylish_block left_column">
+<ul class="no_list_style"><p>
 <% @categories.each do |category| %>
-	<% if category.trucks.find(:all, :conditions => ["city = ?", @city]).count > 0 %>
-		<%= link_to category.name, category_path(category) %>
-		<ul><%	category.trucks.find(:all, :conditions => ["city = ?", @city]).each do |truck| %>
-			<li><%= link_to truck.name, truck %></li>
-			<% end %></ul>
-			<br>
+	<% if !category.trucks.empty? %>
+		<li class="menu_list center_align"><%= link_to (category.name, show_trucks_category_path(category), :remote => true) %></li><br>
 	<% end %>
 <% end %>
+</p></ul>
+</div>
+<div id="truck_list">
+	<%= render(:partial => "truck_list", :locals => {:category => @category}) %>
 </div>

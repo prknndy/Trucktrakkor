@@ -1,0 +1,9 @@
+<div class="center_column text_block">
+	<p class="title">Categories for <%= @truck.name %>:</p>
+	<br>
+	<%= form_for (:truck, @truck, :url => { :action => "update_categories"}, :html => { :method => "put" }) do |f| %>
+		<%= text_field_tag('cat_list', @cat_list) %>
+		<br>
+		<p class="center_align"><%= submit_tag("Update") %><p>
+	<% end %>
+</div>

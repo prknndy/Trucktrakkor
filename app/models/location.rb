@@ -4,7 +4,7 @@ class Location < ActiveRecord::Base
   has_many :tweets
   
   def get_dist(loc)
-    # returns distance from loc in miles
+    # returns distance from location loc in miles
     lat1 = (self.lat.to_f/180)* Math::PI
     lng1 = (self.lng.to_f/180)* Math::PI
     lat2 = (loc.lat.to_f/180)* Math::PI
@@ -20,6 +20,8 @@ class Location < ActiveRecord::Base
   def Location.valid_location?(text, city)
     
     # Split text into sentences and process seperately
+    # assuming !,? or any period after a word with length > 3
+    # represents the end of a sentence.
     sentences = text.downcase.gsub(/(\w{1,3})\./, '\1').split(/\.|\?|!/)
     sentences.each do |sentence|
       # For now, ignore sentences that allude to a future date
@@ -28,7 +30,7 @@ class Location < ActiveRecord::Base
       addr_match = sentence.match(/\d{1,4} ([NnEeSsWw]|[Nn]orth|[Ee]ast|[Ss]outh|[Ww]est)\.? (\w+)/i)
       if (addr_match)
         if (Street.find_by_name_and_city(addr_match[2].capitalize, city))
-          our_location = Location.get_location(addr_match[0], city)
+          our_location = Location.get_location_from_address(addr_match[0], city)
           if our_location
             return our_location
           end
@@ -38,17 +40,21 @@ class Location < ActiveRecord::Base
       block_match = sentence.match(/\d{1,2}00 ([Bb]lock|blc?k) (of)? ([NnEeSsWw]|[Nn]orth|[Ee]ast|[Ss]outh|[Ww]est)\.? (\w+)/i)
       if (block_match)
         if (Street.find_by_name_and_city(block_match[4].capitalize, city))
-          our_location = Location.get_location(block_match[0], city)
+          our_location = Location.get_location_from_address(block_match[0], city)
           if our_location
             return our_location
           end
         end
       end
-      # Split into words and check each one against the street database
+      # Split into words and check each one against the street database and location database keywords
       # Once two streets are found, try and find a location, otherwise return nil
-      # TODO: Add location matching...
       street_matches = []
       sentence.split(/\s+/).each do |w|
+        
+        location_match = Location.get_location_by_keyword(w, sentence, city)
+        if (location_match)
+          return location_match
+        end
         
         street_match = Street.find_by_name_and_city(w.capitalize, city)
         if (street_match)
@@ -57,7 +63,7 @@ class Location < ActiveRecord::Base
         
         if (street_matches.length > 1)
           intersection_string = "#{street_matches[0]} and #{street_matches[1]}"
-          our_location = Location.get_location(intersection_string, city)
+          our_location = Location.get_location_from_address(intersection_string, city)
           if our_location
             return our_location
           end
@@ -69,7 +75,33 @@ class Location < ActiveRecord::Base
   end
   
   
-  def Location.get_location(address, city, save=true)
+  def Location.get_location_by_keyword(keyword, sentence, city)
+    # Searches database for locations with a keyword equal to the input.
+    # If any are found, it searches the sentence the keyword was found in
+    # for a match with the locations name or a regexp that represents the
+    # locations name.
+    
+    # Pull all locations with same keyword from database
+    location_matches = Location.find_all_by_keyword_and_city(keyword, city)
+    location_matches.each do |location_match|
+      # If the location has a reg_match, return location if it exists in the sentence
+      if location_match.reg_match
+        if sentence =~ Regexp.new(location_match.reg_match, true)
+          return location_match
+        end
+      # Otherwise, generate a regex from the location's name and try that
+      else
+        reg_match = Regexp.new(location_match.name, true)
+        if sentence =~ reg_match
+          return location_match
+        end
+      end
+    end
+    nil
+  end
+  
+  def Location.get_location_from_address(address, city, save=true)
+    # TODO: Pull these from the city database
     city_strings = { 'chicago' => ',+Chicago,+IL', 'sanfrancisco' => ',+San+Francisco,+CA', 'newyork' => '+New+York,+NY'}
       
     # Check if this location is already in the database

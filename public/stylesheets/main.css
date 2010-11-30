@@ -42,7 +42,8 @@ body {
 }
 
 .logo {
-	margin-top: 15px;
+	margin-top: 5px;
+	margin-left: 10px;
 	text-decoration: none;
 	border: none;
 }
@@ -104,6 +105,20 @@ ul.menu_block a.selected_city {
 	color: #CDE6FF;
 	text-decoration: none;
 	font-size: 16px;
+}
+
+.stylish_block {
+	background-color: black;
+	color: #CDE6FF;
+	border: 2px solid #CDE6FF;
+	padding: 10px;
+	-moz-border-radius: 7px;
+}
+
+.menu_list a {
+	text-decoration: none;
+	font-size: 16px;
+	color: #CDE6FF;
 }
 
 /* SEARCH TAGS */
@@ -170,12 +185,50 @@ p.title {
 	margin-right: 30%;
 }
 
+.left_column {
+	margin-left: 5%;
+	margin-bottom: 20px;
+	float: left;
+}
+
+.left_column_wide {
+	float: left;
+	margin-left: 10%;
+	width: 30%;
+}
+
+.right_column_wide {
+	margin-left: 40%;
+}
+
+.index_area {
+	margin-left: 5%;
+	margin-bottom: 20px;
+	float: left;
+	width: 347px;479px;
+	height: 362px;
+	margin-left: 10%;
+	padding-top: 90px;
+	padding-right: 20px;
+	padding-left: 112px;
+	padding-bottom: 32px;
+	background-image: url(../images/l_arrow_block.png);
+	background-repeat: no-repeat;
+	font-size: 20px;
+	color: #CDE6FF;
+	
+}
+
 .center_align {
 	text-align: center;
 }
 
 .no_list_style {
 	list-style: none;
+}
+
+.black_bg {
+	background: black;
 }
 
 

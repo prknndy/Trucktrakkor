@@ -1,0 +1,14 @@
+<div class="center_column text_block">
+	<p class="title">Locations in <%= @city %>:</p>
+	<ol>
+	<% @locations.each do |location| %>
+		<li>
+		<%= location.name %>: <%= link_to "edit", edit_admin_location_path(location.id) %> 
+				<%= link_to "delete", [:admin, location], :method => "delete", :confirm => "Confirm?" %>
+		</li>
+		<br>
+	<% end %>
+	<p class="black_bg"><%= will_paginate @locations %></p>	
+	</ol>
+	<p class="center_align"><%= link_to "Add a New Location", new_admin_location_path %></p>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101110004848) do
+ActiveRecord::Schema.define(:version => 20101116000354) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(:version => 20101110004848) do
     t.string   "lng"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "keyword"
+    t.string   "reg_match"
   end
 
   create_table "streets", :force => true do |t|

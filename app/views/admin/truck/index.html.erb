@@ -3,7 +3,8 @@
 	<ol>
 	<% @trucks.each do |truck| %>
 		<li>
-		<%= truck.name %>: <%= link_to "edit", edit_admin_truck_path(truck.id) %> <%= link_to "delete", [:admin, truck], :method => "delete", :confirm => "Confirm?" %>
+		<%= truck.name %>: <%= link_to "edit", edit_admin_truck_path(truck.id) %> <%= link_to "categories", edit_categories_admin_truck_path(truck.id) %>
+				<%= link_to "delete", [:admin, truck], :method => "delete", :confirm => "Confirm?" %>
 		</li>
 		<br>
 	<% end %>

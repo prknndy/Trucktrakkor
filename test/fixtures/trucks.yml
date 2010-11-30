@@ -1,15 +1,3 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  city: MyString
-  name: MyString
-  tags: MyText
-  twitter_id: MyText
-  recent_tweet_id: 
 
-two:
-  city: MyString
-  name: MyString
-  tags: MyText
-  twitter_id: MyText
-  recent_tweet_id: 
