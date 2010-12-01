@@ -1,12 +1,16 @@
 <div class="stylish_block left_column">
+Pick a category
 <ul class="no_list_style"><p>
 <% @categories.each do |category| %>
-	<% if !category.trucks.empty? %>
-		<li class="menu_list center_align"><%= link_to (category.name, show_trucks_category_path(category), :remote => true) %></li><br>
+	<% if !category.trucks.where("city = ?", @city).empty? %>
+		<li class="menu_list"><%= link_to (category.name, show_trucks_category_path(category), :remote => true) %></li>
 	<% end %>
 <% end %>
 </p></ul>
 </div>
 <div id="truck_list">
-	<%= render(:partial => "truck_list", :locals => {:category => @category}) %>
+	<% if !@category.nil? %>
+		<%= render(:partial => "truck_list", :locals => {:category => @category}) %>
+	<% end %>
 </div>
+<div id="pad"></div>

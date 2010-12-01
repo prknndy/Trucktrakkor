@@ -3,8 +3,8 @@ require 'xml'
 class Location < ActiveRecord::Base
   has_many :tweets
   
+  # returns distance from location loc in miles
   def get_dist(loc)
-    # returns distance from location loc in miles
     lat1 = (self.lat.to_f/180)* Math::PI
     lng1 = (self.lng.to_f/180)* Math::PI
     lat2 = (loc.lat.to_f/180)* Math::PI
@@ -17,6 +17,8 @@ class Location < ActiveRecord::Base
     (e_R * c).round
   end
   
+  # searches text parameter for a valid location in city specified by city parameter
+  # returns a location object if one exists
   def Location.valid_location?(text, city)
     
     # Split text into sentences and process seperately
@@ -74,13 +76,11 @@ class Location < ActiveRecord::Base
     nil
   end
   
-  
+  # Searches database for locations with a keyword equal to the input.
+  # If any are found, it searches the sentence the keyword was found in
+  # for a match with the locations name or a regexp that represents the
+  # locations name.
   def Location.get_location_by_keyword(keyword, sentence, city)
-    # Searches database for locations with a keyword equal to the input.
-    # If any are found, it searches the sentence the keyword was found in
-    # for a match with the locations name or a regexp that represents the
-    # locations name.
-    
     # Pull all locations with same keyword from database
     location_matches = Location.find_all_by_keyword_and_city(keyword, city)
     location_matches.each do |location_match|
@@ -100,6 +100,8 @@ class Location < ActiveRecord::Base
     nil
   end
   
+  # Returns a location object for address if it is valid for city
+  # saves object if save is true (default)
   def Location.get_location_from_address(address, city, save=true)
     # TODO: Pull these from the city database
     city_strings = { 'chicago' => ',+Chicago,+IL', 'sanfrancisco' => ',+San+Francisco,+CA', 'newyork' => '+New+York,+NY'}

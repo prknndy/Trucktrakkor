@@ -5,6 +5,7 @@ class Tweet < ActiveRecord::Base
   
   after_create :search_for_location
   
+  # Returns the time elapsed since tweet posting in a friendly format
   def get_time_since
     # TODO remove 's' for singular time sinces
     minutes_since = Integer((Time.now.utc - self.created_at)/60)
@@ -24,8 +25,9 @@ class Tweet < ActiveRecord::Base
     end
   end
   
-  def search_for_location
-    
+  # Check if this instances tweet text contains a location
+  # returns true if it does, false otherwise
+  def search_for_location 
     our_location = Location.valid_location?(self.text, self.truck.city)
     if (our_location)
       self.location = our_location

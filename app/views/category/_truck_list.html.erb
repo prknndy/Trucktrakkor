@@ -1,7 +1,7 @@
 <div class="text_block center_column">
 	<p class="title">Trucks in <%= category.name.capitalize %>:</p><br>
 	<ol>
-		 <% category.trucks.each do |truck| %>
+		 <% category.trucks.where("city = ?", @city).each do |truck| %>
 		 	<li><%= link_to truck.name, truck %></li><br>
 		 <% end %>
 	</ol>

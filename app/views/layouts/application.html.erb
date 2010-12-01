@@ -28,7 +28,7 @@
 		<li>
 			<%= form_tag(search_path, :method => "get") do %>  
 				<%= label_tag(:q, "search for a name or category:") %>  
-				<%= text_field_tag(:search_string) %>  
+				<%= text_field_tag(:search_string, 'lunch') %>  
 				<%= submit_tag("Go!") %> |  
 				<%= label_tag(:q, "enter an address:") %>  
 				<%= text_field_tag(:address_string) %>  
@@ -60,8 +60,8 @@
 <div id="footer">
 	<p>
 		<ul class="menu_block bottom_menu">
-			<li><%= link_to "Browse", browse_path %></li> | 
-			<li><%= link_to "About", about_path %></li> |
+			<li><%= link_to "Browse Trucks", browse_path %></li>| 
+			<li><%= link_to "About", about_path %></li>|
 			<li><a>Truck Operators</a></li>
 		</ul>
 	</p>

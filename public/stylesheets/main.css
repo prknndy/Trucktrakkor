@@ -33,12 +33,28 @@ body {
 
 }
 
+#container {
+	float:left;
+	width: 100%;
+	min-width: 1044px;
+	min-height: 512px;
+	margin-top: 0px;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	margin-bottom: -20px;
+	background: black;
+	background-image: url(../images/bg.png);
+	background-repeat: repeat-x;
+	
+}
+
 #footer {
 	min-width: 1044px;
 	min-height: 91px;
 	border-top: 10px solid black;
 	margin-top: 0px;
 	background: #162739;
+	clear: both;
 }
 
 .logo {
@@ -48,7 +64,7 @@ body {
 	border: none;
 }
 
-/* MENU BLOCK TAGS */
+/* MENU TAGS */
 
 .top_menu {
 	float: right;
@@ -108,10 +124,11 @@ ul.menu_block a.selected_city {
 }
 
 .stylish_block {
-	background-color: black;
+	background-color: #0c2b4b;
 	color: #CDE6FF;
-	border: 2px solid #CDE6FF;
-	padding: 10px;
+	border: 3px solid #CDE6FF;
+	padding-left:  15px;
+	padding-right: 15px;
 	-moz-border-radius: 7px;
 }
 
@@ -142,19 +159,7 @@ ul.menu_block a.selected_city {
 
 #search_form ul li {display: inline; }
 
-/* MAIN PAGE TAGS */
-
-#container {
-	min-width: 1044px;
-	min-height: 512px;
-	margin-top: 0px;
-	padding-top: 20px;
-	margin-bottom: -20px;
-	background: black;
-	background-image: url(../images/bg.png);
-	background-repeat: repeat-x;
-	
-}
+/* CONTENT TAGS */
 
 .static_page {
 	color: #CDE6FF;
@@ -187,7 +192,7 @@ p.title {
 
 .left_column {
 	margin-left: 5%;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	float: left;
 }
 
@@ -225,6 +230,7 @@ p.title {
 
 .no_list_style {
 	list-style: none;
+	padding-left: 0px;
 }
 
 .black_bg {
